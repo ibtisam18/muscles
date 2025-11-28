@@ -17,7 +17,7 @@ const STEPS = [
   "The axillary artery becomes the brachial artery.",
   "The brachial artery divides into the radial artery and the ulnar artery.",
   "We now continue down the descending thoracic aorta.",
-  "The descending aorta passes the diaphragm and becomes the abdominal aorta at the level of T12.",
+  "The descending aorta passes the diaphragm and becomes the abdominal aorta at the level of L4.",
   "The abdominal aorta gives three unpaired branches: the celiac trunk, the superior mesenteric artery, and the inferior mesenteric artery.",
   "At the level of L4, the abdominal aorta bifurcates.",
   "It divides into the right common iliac artery and the left common iliac artery.",
@@ -398,3 +398,4 @@ function AortaToFootSpeaker() {
 }
 
 export default AortaToFootSpeaker;
+
