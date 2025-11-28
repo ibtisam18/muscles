@@ -34,12 +34,12 @@ function ArterialDiagram({ activeSegmentId }) {
       />
       <Segment
         id="subclavian-common-carotid"
-        label="Common carotids & subclavian"
+        label="Common carotids & subclavian branches"
         activeId={activeSegmentId}
       />
       <Segment
         id="upper-limb"
-        label="Upper limb: axillary → brachial → radial & ulnar"
+        label="Upper limb: subclavian → axillary (1st rib) → brachial (teres major) → radial & ulnar (cubital fossa)"
         activeId={activeSegmentId}
       />
       <Segment
@@ -49,12 +49,12 @@ function ArterialDiagram({ activeSegmentId }) {
       />
       <Segment
         id="abdominal-aorta"
-        label="Abdominal aorta"
+        label="Abdominal aorta (T12 → L4)"
         activeId={activeSegmentId}
       />
       <Segment
         id="visceral-branches"
-        label="Celiac, SMA, IMA"
+        label="Celiac trunk, SMA, IMA"
         activeId={activeSegmentId}
       />
       <Segment
@@ -69,22 +69,22 @@ function ArterialDiagram({ activeSegmentId }) {
       />
       <Segment
         id="external-iliac-femoral"
-        label="External iliac → femoral"
+        label="External iliac → femoral (inguinal ligament)"
         activeId={activeSegmentId}
       />
       <Segment
         id="popliteal"
-        label="Popliteal artery"
+        label="Femoral → popliteal (adductor hiatus)"
         activeId={activeSegmentId}
       />
       <Segment
         id="anterior-tibial-dorsalis"
-        label="Anterior tibial → dorsalis pedis"
+        label="Anterior tibial → dorsalis pedis (ankle joint)"
         activeId={activeSegmentId}
       />
       <Segment
         id="posterior-tibial-plantar"
-        label="Posterior tibial → medial & lateral plantar"
+        label="Posterior tibial → medial & lateral plantar (tarsal tunnel)"
         activeId={activeSegmentId}
       />
       <Segment
