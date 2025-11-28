@@ -4,66 +4,67 @@ import "./AortaToFootSpeaker.css"; // reuse same styles
 import VenousDiagram from "./VenousDiagram.jsx"; // 👈 NEW
 
 // English venous steps: foot → IVC → right atrium
+// English venous steps: foot → IVC → right atrium (with landmarks)
 const VENOUS_STEPS_EN = [
   "We begin in the small veins of the toes and the plantar venous plexus in the sole of the foot.",
-  "These veins drain into the plantar venous arches and then into the medial and lateral plantar veins.",
-  "The medial and lateral plantar veins unite to form the posterior tibial veins.",
-  "Superficially, blood from the medial side of the foot and leg drains into the great saphenous vein.",
-  "Superficially, blood from the lateral side of the foot drains into the small saphenous vein.",
-  "The posterior tibial veins and the fibular (peroneal) veins run in the deep posterior compartment of the leg.",
-  "Anteriorly, the anterior tibial veins collect blood from the dorsum of the foot.",
-  "Around the knee, these deep veins join to form the popliteal vein in the popliteal fossa.",
-  "The small saphenous vein usually drains into the popliteal vein.",
-  "Above the knee, the popliteal vein continues as the femoral vein.",
-  "The great saphenous vein ascends on the medial side of the leg and thigh and drains into the femoral vein near the groin.",
-  "As it passes beneath the inguinal ligament, the femoral vein becomes the external iliac vein.",
-  "The internal iliac vein drains blood from the pelvic organs and gluteal region.",
-  "The external and internal iliac veins join to form the common iliac vein on each side.",
-  "The right and left common iliac veins unite to form the inferior vena cava at the level of L5.",
+  "These veins drain into the plantar venous arches and then into the medial and lateral plantar veins along the plantar aspect of the foot.",
+  "The medial and lateral plantar veins unite behind the medial malleolus to form the posterior tibial veins.",
+  "Superficially, blood from the medial side of the foot and leg drains into the great saphenous vein, which begins anterior to the medial malleolus.",
+  "Superficially, blood from the lateral side of the foot drains into the small saphenous vein, which begins posterior to the lateral malleolus.",
+  "The posterior tibial veins and the fibular (peroneal) veins run together in the deep posterior compartment of the leg.",
+  "Anteriorly, the anterior tibial veins collect blood from the dorsum of the foot and ascend in the anterior compartment of the leg.",
+  "Around the knee, these deep veins join at the level of the popliteal fossa to form the popliteal vein behind the knee joint.",
+  "The small saphenous vein usually drains into the popliteal vein in the popliteal fossa.",
+  "Above the knee, at the adductor hiatus, the popliteal vein continues as the femoral vein.",
+  "The great saphenous vein ascends on the medial side of the leg and thigh and drains into the femoral vein at the saphenous opening near the groin.",
+  "As it passes beneath the inguinal ligament at the mid-inguinal point, the femoral vein becomes the external iliac vein.",
+  "The internal iliac vein drains blood from the pelvic organs and the gluteal region within the pelvic cavity.",
+  "On each side, the external and internal iliac veins join near the sacroiliac joint to form the common iliac vein.",
+  "The right and left common iliac veins unite in front of the body of L5 to form the inferior vena cava.",
   "The inferior vena cava ascends on the right side of the vertebral column through the abdomen and thorax.",
-  "It passes through the diaphragm and enters the right atrium of the heart.",
+  "It passes through the central tendon of the diaphragm at the caval opening at the level of T8 and enters the right atrium of the heart.",
   "This completes the pathway of venous return from the foot to the heart."
 ];
 
 const VENOUS_STEPS_FR = [
   "Nous commençons dans les petites veines des orteils et le plexus veineux plantaire dans la plante du pied.",
-  "Ces veines se drainent dans les arcades veineuses plantaires puis dans les veines plantaires médiale et latérale.",
-  "Les veines plantaires médiale et latérale s'unissent pour former les veines tibiales postérieures.",
-  "En superficie, le sang du côté médial du pied et de la jambe se draine dans la grande veine saphène.",
-  "En superficie, le sang du côté latéral du pied se draine dans la petite veine saphène.",
-  "Les veines tibiales postérieures et les veines fibulaires (péronières) cheminent dans le compartiment postérieur profond de la jambe.",
-  "En avant, les veines tibiales antérieures recueillent le sang du dos du pied.",
-  "Autour du genou, ces veines profondes s'unissent pour former la veine poplitée dans la fosse poplitée.",
-  "La petite veine saphène se draine généralement dans la veine poplitée.",
-  "Au-dessus du genou, la veine poplitée se poursuit comme veine fémorale.",
-  "La grande veine saphène monte sur le côté médial de la jambe et de la cuisse et se draine dans la veine fémorale près de l'aine.",
-  "En passant sous le ligament inguinal, la veine fémorale devient la veine iliaque externe.",
-  "La veine iliaque interne draine le sang des organes pelviens et de la région fessière.",
-  "Les veines iliaques externe et interne s'unissent pour former la veine iliaque commune de chaque côté.",
-  "Les veines iliaques communes droite et gauche s'unissent pour former la veine cave inférieure au niveau de L5.",
-  "La veine cave inférieure monte sur le côté droit de la colonne vertébrale à travers l'abdomen et le thorax.",
-  "Elle traverse le diaphragme et pénètre dans l'oreillette droite du cœur.",
+  "Ces veines se drainent dans les arcades veineuses plantaires puis dans les veines plantaires médiale et latérale le long de la face plantaire du pied.",
+  "Les veines plantaires médiale et latérale s'unissent derrière la malléole médiale pour former les veines tibiales postérieures.",
+  "En superficie, le sang du côté médial du pied et de la jambe se draine dans la grande veine saphène, qui débute en avant de la malléole médiale.",
+  "En superficie, le sang du côté latéral du pied se draine dans la petite veine saphène, qui commence en arrière de la malléole latérale.",
+  "Les veines tibiales postérieures et les veines fibulaires (péronières) cheminent ensemble dans le compartiment postérieur profond de la jambe.",
+  "En avant, les veines tibiales antérieures recueillent le sang du dos du pied et remontent dans le compartiment antérieur de la jambe.",
+  "Autour du genou, ces veines profondes s'unissent au niveau de la fosse poplitée pour former la veine poplitée en arrière de l'articulation du genou.",
+  "La petite veine saphène se draine généralement dans la veine poplitée dans la fosse poplitée.",
+  "Au-dessus du genou, au niveau du hiatus de l'adducteur, la veine poplitée se poursuit comme veine fémorale.",
+  "La grande veine saphène monte sur le côté médial de la jambe et de la cuisse et se draine dans la veine fémorale à l'orifice saphène près de l'aine.",
+  "En passant sous le ligament inguinal, au niveau du point inguinal moyen, la veine fémorale devient la veine iliaque externe.",
+  "La veine iliaque interne draine le sang des organes pelviens et de la région fessière à l'intérieur du bassin.",
+  "De chaque côté, les veines iliaques externe et interne s'unissent près de l'articulation sacro-iliaque pour former la veine iliaque commune.",
+  "Les veines iliaques communes droite et gauche s'unissent en avant du corps de L5 pour former la veine cave inférieure.",
+  "La veine cave inférieure monte sur le côté droit de la colonne vertébrale à travers l'abdomen puis le thorax.",
+  "Elle traverse le tendon central du diaphragme par l'orifice de la veine cave au niveau de T8 et pénètre dans l'oreillette droite du cœur.",
   "Ainsi se complète le trajet du retour veineux du pied vers le cœur."
 ];
 
 const VENOUS_STEPS_AR = [
   "نبدأ من الأوردة الصغيرة في أصابع القدم والضفيرة الوريدية الأخمصية في باطن القدم.",
-  "تتصرف هذه الأوردة إلى الأقواس الوريدية الأخمصية ثم إلى الوريدين الأخمصيين الإنسي والوحشي.",
-  "يتحد الوريد الأخمصي الإنسي والوريد الأخمصي الوحشي لتكوين الأوردة الظنبوبية الخلفية.",
-  "سطحياً، يتصرف الدم من الجانب الأنسي للقدم والساق إلى الوريد الصافن الكبير.",
-  "سطحياً، يتصرف الدم من الجانب الوحشي للقدم إلى الوريد الصافن الصغير.",
-  "تسير الأوردة الظنبوبية الخلفية والأوردة الشظوية في الحجرة الخلفية العميقة للساق.",
-  "أمامياً، تجمع الأوردة الظنبوبية الأمامية الدم من ظهر القدم.",
-  "حول الركبة، تتحد هذه الأوردة العميقة لتكوّن الوريد المأبضي في الحفرة المأبضية.",
-  "عادةً ما يصب الوريد الصافن الصغير في الوريد المأبضي.",
-  "فوق الركبة، يستمر الوريد المأبضي ليصبح الوريد الفخذي.",
-  "يصعد الوريد الصافن الكبير على الجانب الأنسي للساق والفخذ ويصب في الوريد الفخذي قرب المنطقة الأربية.",
-  "عند مروره تحت الرباط الأربي يصبح الوريد الفخذي الوريد الحرقفي الخارجي.",
-  "يُصرّف الوريد الحرقفي الداخلي الدم من أعضاء الحوض والمنطقة الألوية.",
-  "يتحد الوريدان الحرقفيان الخارجي والداخلي لتكوين الوريد الحرقفي الأصلي في كل جانب.",
-  "يتحد الوريدان الحرقفيان الأصليان الأيمن والأيسر لتكوين الوريد الأجوف السفلي عند مستوى الفقرة L5.",
-  "يصعد الوريد الأجوف السفلي على الجانب الأيمن من العمود الفقري عبر البطن والصدر.",
-  "يعبر الحجاب الحاجز ويدخل الأذين الأيمن للقلب.",
+  "تتصرف هذه الأوردة إلى الأقواس الوريدية الأخمصية ثم إلى الوريدين الأخمصيين الإنسي والوحشي على طول السطح الأخمصي للقدم.",
+  "يتحد الوريد الأخمصي الإنسي والوريد الأخمصي الوحشي خلف الكعب الإنسي لتكوين الأوردة الظنبوبية الخلفية.",
+  "سطحياً، يتصرف الدم من الجانب الأنسي للقدم والساق إلى الوريد الصافن الكبير، الذي يبدأ أمام الكعب الإنسي.",
+  "سطحياً، يتصرف الدم من الجانب الوحشي للقدم إلى الوريد الصافن الصغير، الذي يبدأ خلف الكعب الوحشي.",
+  "تسير الأوردة الظنبوبية الخلفية والأوردة الشظوية معاً في الحجرة الخلفية العميقة للساق.",
+  "أمامياً، تجمع الأوردة الظنبوبية الأمامية الدم من ظهر القدم وتصعد في الحجرة الأمامية للساق.",
+  "حول الركبة، تتحد هذه الأوردة العميقة عند مستوى الحفرة المأبضية لتكوّن الوريد المأبضي خلف مفصل الركبة.",
+  "عادةً ما يصب الوريد الصافن الصغير في الوريد المأبضي داخل الحفرة المأبضية.",
+  "فوق الركبة، وعند مستوى فتحة العضلة المقربة، يستمر الوريد المأبضي ليصبح الوريد الفخذي.",
+  "يصعد الوريد الصافن الكبير على الجانب الأنسي للساق والفخذ ويصب في الوريد الفخذي عند الفوهة الصافنية في اللفافة العريضة قرب المنطقة الأربية.",
+  "عند مرور الوريد الفخذي تحت الرباط الأربي عند النقطة الأربية المتوسطة، يصبح الوريد الحرقفي الخارجي.",
+  "يصرّف الوريد الحرقفي الداخلي الدم من أعضاء الحوض ومن المنطقة الألوية داخل التجويف الحوضي.",
+  "يتحد الوريدان الحرقفيان الخارجي والداخلي في كل جانب قرب المفصل العجزي الحرقفي لتكوين الوريد الحرقفي الأصلي.",
+  "يتحد الوريدان الحرقفيان الأصليان الأيمن والأيسر أمام جسم الفقرة L5 لتكوين الوريد الأجوف السفلي.",
+  "يصعد الوريد الأجوف السفلي على الجانب الأيمن من العمود الفقري عبر البطن ثم الصدر.",
+  "يعبر الوريد الأجوف السفلي وتر الحجاب الحاجز من خلال فتحة الوريد الأجوف عند مستوى الفقرة T8 ويدخل الأذين الأيمن للقلب.",
   "وبذلك يكتمل مسار العودة الوريدية من القدم إلى القلب."
 ];
 
@@ -72,6 +73,7 @@ const VENOUS_STEP_SETS = {
   fr: VENOUS_STEPS_FR,
   ar: VENOUS_STEPS_AR
 };
+
 
 function VenousReturnSpeaker() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -350,3 +352,4 @@ function VenousReturnSpeaker() {
 }
 
 export default VenousReturnSpeaker;
+
