@@ -3,9 +3,8 @@ import React, { useState, useRef, useEffect } from "react";
 import "./AortaToFootSpeaker.css";
 import ArterialDiagram from "./ArterialDiagram.jsx";
 
-// ✅ Original English steps (unchanged core)
+// ✅ English steps (flat array of strings)
 const STEPS = [
- [
   "We begin at the ascending aorta.",
   "The ascending aorta continues into the aortic arch.",
   "The aortic arch gives three main branches.",
@@ -35,88 +34,83 @@ const STEPS = [
   "The posterior tibial artery divides into the medial plantar artery and the lateral plantar artery after passing behind the medial malleolus, deep to the flexor retinaculum.",
   "The fibular artery runs along the lateral part of the posterior compartment of the leg.",
   "This completes the pathway from the ascending aorta to the arteries of the foot."
-
 ];
 
 // ✅ Multilingual versions of the same steps
 const STEP_SETS = {
   en: STEPS,
   fr: [
-  "Nous commençons par l’aorte ascendante.",
-  "L’aorte ascendante se poursuit dans la crosse aortique.",
-  "La crosse aortique donne trois branches principales.",
-  "Premièrement, le tronc brachiocéphalique.",
-  "Deuxièmement, l’artère carotide commune gauche.",
-  "Troisièmement, l’artère subclavière gauche.",
-  "Le tronc brachiocéphalique se divise en artère carotide commune droite et artère subclavière droite.",
-  "Les deux artères carotides communes se divisent en artère carotide externe et artère carotide interne.",
-  "L’artère subclavière droite devient l’artère axillaire après avoir franchi le bord latéral de la première côte.",
-  "L’artère axillaire devient l’artère brachiale après avoir passé le bord inférieur du muscle grand rond (teres major).",
-  "L’artère brachiale se divise en artère radiale et artère ulnaire dans la fosse cubitale, près du col du radius.",
-  "Nous poursuivons maintenant avec l’aorte thoracique descendante.",
-  "L’aorte descendante traverse le diaphragme et devient l’aorte abdominale au niveau de T12, à l’hiatus aortique.",
-  "L’aorte abdominale donne trois branches impaires : le tronc cœliaque, l’artère mésentérique supérieure et l’artère mésentérique inférieure.",
-  "Au niveau de L4, l’aorte abdominale se divise.",
-  "Elle se divise en artère iliaque commune droite et artère iliaque commune gauche.",
-  "Chaque artère iliaque commune se divise en artère iliaque interne et artère iliaque externe.",
-  "L’artère iliaque interne irrigue les organes pelviens et la région génitale.",
-  "L’artère iliaque externe continue sous le ligament inguinal.",
-  "Après avoir passé le ligament inguinal, l’artère iliaque externe devient l’artère fémorale.",
-  "L’artère fémorale traverse la cuisse.",
-  "Après avoir traversé le hiatus de l’adducteur, l’artère fémorale devient l’artère poplitée.",
-  "Dans la fosse poplitée, l’artère poplitée se divise en artère tibiale antérieure et tronc tibio-péronier.",
-  "L’artère tibiale antérieure continue dans le pied sous le nom d’artère dorsale du pied (dorsalis pedis) après avoir franchi l’articulation de la cheville, entre les malléoles.",
-  "L’artère dorsale du pied donne l’artère arquée et les artères métatarsiennes dorsales.",
-  "Le tronc tibio-péronier se divise en artère tibiale postérieure et artère fibulaire.",
-  "L’artère tibiale postérieure se divise en artère plantaire médiale et artère plantaire latérale après être passée derrière la malléole médiale, sous le rétinaculum des fléchisseurs.",
-  "L’artère fibulaire chemine le long de la partie latérale du compartiment postérieur de la jambe.",
-  "Cela complète le trajet de l’aorte ascendante jusqu’aux artères du pied."
-
+    "Nous commençons par l’aorte ascendante.",
+    "L’aorte ascendante se poursuit dans la crosse aortique.",
+    "La crosse aortique donne trois branches principales.",
+    "Premièrement, le tronc brachiocéphalique.",
+    "Deuxièmement, l’artère carotide commune gauche.",
+    "Troisièmement, l’artère subclavière gauche.",
+    "Le tronc brachiocéphalique se divise en artère carotide commune droite et artère subclavière droite.",
+    "Les deux artères carotides communes se divisent en artère carotide externe et artère carotide interne.",
+    "L’artère subclavière droite devient l’artère axillaire après avoir franchi le bord latéral de la première côte.",
+    "L’artère axillaire devient l’artère brachiale après avoir passé le bord inférieur du muscle grand rond (teres major).",
+    "L’artère brachiale se divise en artère radiale et artère ulnaire dans la fosse cubitale, près du col du radius.",
+    "Nous poursuivons maintenant avec l’aorte thoracique descendante.",
+    "L’aorte descendante traverse le diaphragme et devient l’aorte abdominale au niveau de T12, à l’hiatus aortique.",
+    "L’aorte abdominale donne trois branches impaires : le tronc cœliaque, l’artère mésentérique supérieure et l’artère mésentérique inférieure.",
+    "Au niveau de L4, l’aorte abdominale se divise.",
+    "Elle se divise en artère iliaque commune droite et artère iliaque commune gauche.",
+    "Chaque artère iliaque commune se divise en artère iliaque interne et artère iliaque externe.",
+    "L’artère iliaque interne irrigue les organes pelviens et la région génitale.",
+    "L’artère iliaque externe continue sous le ligament inguinal.",
+    "Après avoir passé le ligament inguinal, l’artère iliaque externe devient l’artère fémorale.",
+    "L’artère fémorale traverse la cuisse.",
+    "Après avoir traversé le hiatus de l’adducteur, l’artère fémorale devient l’artère poplitée.",
+    "Dans la fosse poplitée, l’artère poplitée se divise en artère tibiale antérieure et tronc tibio-péronier.",
+    "L’artère tibiale antérieure continue dans le pied sous le nom d’artère dorsale du pied (dorsalis pedis) après avoir franchi l’articulation de la cheville, entre les malléoles.",
+    "L’artère dorsale du pied donne l’artère arquée et les artères métatarsiennes dorsales.",
+    "Le tronc tibio-péronier se divise en artère tibiale postérieure et artère fibulaire.",
+    "L’artère tibiale postérieure se divise en artère plantaire médiale et artère plantaire latérale après être passée derrière la malléole médiale, sous le rétinaculum des fléchisseurs.",
+    "L’artère fibulaire chemine le long de la partie latérale du compartiment postérieur de la jambe.",
+    "Cela complète le trajet de l’aorte ascendante jusqu’aux artères du pied."
   ],
   ar: [
-  [
-  "نبدأ بالشريان الأبهر الصاعد.",
-  "يستمر الشريان الأبهر الصاعد ليتحوّل إلى قوس الأبهر.",
-  "يعطي قوس الأبهر ثلاثة فروع رئيسية.",
-  "أولاً، الجذع العضدي الرأسي.",
-  "ثانياً، الشريان السباتي الأصلي الأيسر.",
-  "ثالثاً، الشريان تحت الترقوة الأيسر.",
-  "ينقسم الجذع العضدي الرأسي إلى الشريان السباتي الأصلي الأيمن والشريان تحت الترقوة الأيمن.",
-  "ينقسم الشريانان السباتيان الأصليان إلى الشريان السباتي الخارجي والشريان السباتي الداخلي.",
-  "يصبح الشريان تحت الترقوة الأيمن شرياناً إبطيّاً بعد تجاوزه الحافة الجانبية للضلع الأول.",
-  "يصبح الشريان الإبطي شرياناً عضديّاً بعد مروره أسفل الحافة السفلية لعضلة المدور الكبير (teres major).",
-  "ينقسم الشريان العضدي إلى الشريان الكعبري والشريان الزندي في الحفرة المرفقية قرب عنق الكعبرة.",
-  "نواصل الآن نزولاً عبر الأبهر الصدري النازل.",
-  "يعبر الأبهر النازل الحجاب الحاجز ويتحوّل إلى الأبهر البطني عند مستوى الفقرة T12 في فوهة الأبهر.",
-  "يعطي الأبهر البطني ثلاثة فروع غير مزدوجة: الجذع البطني، الشريان المساريقي العلوي، والشريان المساريقي السفلي.",
-  "عند مستوى الفقرة L4 ينقسم الأبهر البطني.",
-  "ينقسم إلى الشريان الحرقفي الأصلي الأيمن والشريان الحرقفي الأصلي الأيسر.",
-  "وينقسم كل شريان حرقفي أصلي إلى شريان حرقفي داخلي وشريان حرقفي خارجي.",
-  "يزوّد الشريان الحرقفي الداخلي أعضاء الحوض والمنطقة التناسلية.",
-  "ويستمر الشريان الحرقفي الخارجي تحت الرباط الأربي.",
-  "بعد مروره تحت الرباط الأربي يصبح الشريان الحرقفي الخارجي شرياناً فخذياً.",
-  "يمتد الشريان الفخذي عبر الفخذ.",
-  "بعد مروره من فتحة العضلة المقربة يصبح الشريان الفخذي شرياناً مأبضياً.",
-  "في الحفرة المأبضية ينقسم الشريان المأبضي إلى الشريان الظنبوبي الأمامي والجذع الظنبوبي الشظوي.",
-  "يستمر الشريان الظنبوبي الأمامي داخل القدم باسم الشريان الظهري للقدم (dorsalis pedis) بعد تجاوزه مفصل الكاحل بين القبتين.",
-  "يعطي الشريان الظهري للقدم الشريان القوسي والشرايين المشطية الظهرية.",
-  "ينقسم الجذع الظنبوبي الشظوي إلى الشريان الظنبوبي الخلفي والشريان الشظوي.",
-  "ينقسم الشريان الظنبوبي الخلفي إلى الشريان الأخمصي الإنسي والشريان الأخمصي الوحشي بعد مروره خلف الكعب الإنسي تحت الرباط المثنّي.",
-  "يسير الشريان الشظوي على طول الجزء الوحشي من الحجرة الخلفية للساق.",
-  "وبهذا يكتمل المسار من الأبهر الصاعد إلى شرايين القدم."
-
+    "نبدأ بالشريان الأبهر الصاعد.",
+    "يستمر الشريان الأبهر الصاعد ليتحوّل إلى قوس الأبهر.",
+    "يعطي قوس الأبهر ثلاثة فروع رئيسية.",
+    "أولاً، الجذع العضدي الرأسي.",
+    "ثانياً، الشريان السباتي الأصلي الأيسر.",
+    "ثالثاً، الشريان تحت الترقوة الأيسر.",
+    "ينقسم الجذع العضدي الرأسي إلى الشريان السباتي الأصلي الأيمن والشريان تحت الترقوة الأيمن.",
+    "ينقسم الشريانان السباتيان الأصليان إلى الشريان السباتي الخارجي والشريان السباتي الداخلي.",
+    "يصبح الشريان تحت الترقوة الأيمن شرياناً إبطيّاً بعد تجاوزه الحافة الجانبية للضلع الأول.",
+    "يصبح الشريان الإبطي شرياناً عضديّاً بعد مروره أسفل الحافة السفلية لعضلة المدور الكبير (teres major).",
+    "ينقسم الشريان العضدي إلى الشريان الكعبري والشريان الزندي في الحفرة المرفقية قرب عنق الكعبرة.",
+    "نواصل الآن نزولاً عبر الأبهر الصدري النازل.",
+    "يعبر الأبهر النازل الحجاب الحاجز ويتحوّل إلى الأبهر البطني عند مستوى الفقرة T12 في فوهة الأبهر.",
+    "يعطي الأبهر البطني ثلاثة فروع غير مزدوجة: الجذع البطني، الشريان المساريقي العلوي، والشريان المساريقي السفلي.",
+    "عند مستوى الفقرة L4 ينقسم الأبهر البطني.",
+    "ينقسم إلى الشريان الحرقفي الأصلي الأيمن والشريان الحرقفي الأصلي الأيسر.",
+    "وينقسم كل شريان حرقفي أصلي إلى شريان حرقفي داخلي وشريان حرقفي خارجي.",
+    "يزوّد الشريان الحرقفي الداخلي أعضاء الحوض والمنطقة التناسلية.",
+    "ويستمر الشريان الحرقفي الخارجي تحت الرباط الأربي.",
+    "بعد مروره تحت الرباط الأربي يصبح الشريان الحرقفي الخارجي شرياناً فخذياً.",
+    "يمتد الشريان الفخذي عبر الفخذ.",
+    "بعد مروره من فتحة العضلة المقربة يصبح الشريان الفخذي شرياناً مأبضياً.",
+    "في الحفرة المأبضية ينقسم الشريان المأبضي إلى الشريان الظنبوبي الأمامي والجذع الظنبوبي الشظوي.",
+    "يستمر الشريان الظنبوبي الأمامي داخل القدم باسم الشريان الظهري للقدم (dorsalis pedis) بعد تجاوزه مفصل الكاحل بين القبتين.",
+    "يعطي الشريان الظهري للقدم الشريان القوسي والشرايين المشطية الظهرية.",
+    "ينقسم الجذع الظنبوبي الشظوي إلى الشريان الظنبوبي الخلفي والشريان الشظوي.",
+    "ينقسم الشريان الظنبوبي الخلفي إلى الشريان الأخمصي الإنسي والشريان الأخمصي الوحشي بعد مروره خلف الكعب الإنسي تحت الرباط المثنّي.",
+    "يسير الشريان الشظوي على طول الجزء الوحشي من الحجرة الخلفية للساق.",
+    "وبهذا يكتمل المسار من الأبهر الصاعد إلى شرايين القدم."
   ]
 };
 
 function AortaToFootSpeaker() {
   const [currentStep, setCurrentStep] = useState(0);
   const [displayText, setDisplayText] = useState("");
-  const [messages, setMessages] = useState([]); // finished lines
+  const [messages, setMessages] = useState([]);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
   const [activeSegmentId, setActiveSegmentId] = useState("ascending-aorta");
 
-  // ✅ language + voices
   const [language, setLanguage] = useState("en");
   const [voices, setVoices] = useState([]);
   const [voice, setVoice] = useState(null);
@@ -124,7 +118,7 @@ function AortaToFootSpeaker() {
   const typingIntervalRef = useRef(null);
   const utteranceRef = useRef(null);
 
-  // Load voices once
+  // Load voices
   useEffect(() => {
     if (!("speechSynthesis" in window)) return;
 
@@ -144,12 +138,11 @@ function AortaToFootSpeaker() {
     };
   }, []);
 
-  // Pick a voice that matches the current language
+  // Pick voice based on language
   useEffect(() => {
     if (!voices.length) return;
 
-    const langPrefix =
-      language === "en" ? "en" : language === "fr" ? "fr" : "ar";
+    const langPrefix = language === "en" ? "en" : language === "fr" ? "fr" : "ar";
 
     const chosen =
       voices.find((v) =>
@@ -185,8 +178,10 @@ function AortaToFootSpeaker() {
         setActiveSegmentId("upper-limb");
         break;
       case 11:
-      case 12:
         setActiveSegmentId("descending-aorta");
+        break;
+      case 12:
+        setActiveSegmentId("abdominal-aorta");
         break;
       case 13:
         setActiveSegmentId("visceral-branches");
@@ -197,9 +192,9 @@ function AortaToFootSpeaker() {
         setActiveSegmentId("bifurcation-common-iliac");
         break;
       case 17:
-      case 18:
         setActiveSegmentId("internal-iliac");
         break;
+      case 18:
       case 19:
       case 20:
         setActiveSegmentId("external-iliac-femoral");
@@ -237,7 +232,7 @@ function AortaToFootSpeaker() {
         clearInterval(typingIntervalRef.current);
         typingIntervalRef.current = null;
       }
-    }, 25); // typing speed (ms)
+    }, 25);
   };
 
   const speakStep = (stepIndex) => {
@@ -267,12 +262,9 @@ function AortaToFootSpeaker() {
 
     utterance.onend = () => {
       setIsSpeaking(false);
-      setMessages((prev) => [
-        ...prev,
-        { role: "tutor", text }
-      ]);
+      setMessages((prev) => [...prev, { role: "tutor", text }]);
 
-      if (stepIndex + 1 < STEPS.length) {
+      if (stepIndex + 1 < stepsForLang.length) {
         setCurrentStep(stepIndex + 1);
         setTimeout(() => {
           speakStep(stepIndex + 1);
@@ -330,15 +322,15 @@ function AortaToFootSpeaker() {
     window.speechSynthesis.speak(preview);
   };
 
+  const stepsForLang = STEP_SETS[language] || STEP_SETS.en;
+
   return (
     <div className="speaker-root">
       <div className="speaker-header">
         <h1>Ascending Aorta → Foot Arteries</h1>
-      
       </div>
 
       <div className="speaker-controls">
-        {/* Language selector */}
         <label className="language-select">
           <span>Language:</span>
           <select
@@ -387,7 +379,7 @@ function AortaToFootSpeaker() {
 
           {!isSpeaking &&
             hasStarted &&
-            currentStep === STEPS.length - 1 && (
+            currentStep === stepsForLang.length - 1 && (
               <div className="chat-bubble system">
                 <div className="chat-text">
                   ✅ Finished the pathway. Click “Restart explanation” to hear it again.
@@ -403,6 +395,3 @@ function AortaToFootSpeaker() {
 }
 
 export default AortaToFootSpeaker;
-
-
-
