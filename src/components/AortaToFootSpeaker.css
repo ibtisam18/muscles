@@ -1,0 +1,397 @@
+/* ====================================
+   SPEAKER CONTAINER (Aorta + Venous)
+   ==================================== */
+
+.speaker-root {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  border-radius: 1.75rem;
+  box-sizing: border-box;
+  border: 1px solid rgba(148, 163, 184, 0.35); /* subtle outline */
+  transition: background-color 0.25s ease, color 0.25s ease,
+    box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* DARK MODE – deep navy card */
+.speaker-root.dark {
+  background: #020617;
+  color: #e5e7eb;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* LIGHT MODE – soft blue pastel card like your screenshot */
+.speaker-root.light {
+  background: radial-gradient(circle at top, #e0f2ff 0%, #f0f9ff 60%);
+  color: #0f172a;
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.25);
+  border-color: rgba(191, 219, 254, 0.9);
+}
+
+/* ====================================
+   HEADER
+   ==================================== */
+
+.speaker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.header-left h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.header-left p {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* (only used if you ever put a sun/moon icon inside the speaker) */
+.theme-toggle {
+  border: none;
+  background: transparent;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* ====================================
+   PROGRESS BAR (if present)
+   ==================================== */
+
+.speaker-progress {
+  margin-bottom: 0.9rem;
+}
+
+.speaker-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  margin-bottom: 0.25rem;
+  opacity: 0.8;
+}
+
+.speaker-progress-bar {
+  position: relative;
+  height: 0.36rem;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.speaker-root.dark .speaker-progress-bar {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+.speaker-root.light .speaker-progress-bar {
+  background: rgba(191, 219, 254, 0.9);
+}
+
+.speaker-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 0.25s ease;
+}
+
+.speaker-root.dark .speaker-progress-fill {
+  background: linear-gradient(90deg, #22c55e, #38bdf8);
+}
+
+.speaker-root.light .speaker-progress-fill {
+  background: linear-gradient(90deg, #0ea5e9, #22c55e);
+}
+
+/* ====================================
+   CONTROLS ROW
+   ==================================== */
+
+.speaker-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1.1rem;
+}
+
+.speaker-controls button {
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.speaker-root.dark .speaker-controls button {
+  background: #38bdf8;
+  color: #0f172a;
+}
+
+.speaker-root.light .speaker-controls button {
+  background: #0ea5e9;
+  color: #f9fafb;
+}
+
+.speaker-controls button:hover:not(:disabled) {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.speaker-controls button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.language-select {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.language-select select {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid #cbd5f5;
+  font-size: 0.9rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.language-select select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+}
+
+/* ====================================
+   LAYOUT: CHAT + DIAGRAM
+   ==================================== */
+
+/* chat on left, dark card on right */
+.speaker-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .speaker-content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ====================================
+   CHAT WINDOW + BUBBLES
+   ==================================== */
+
+/* default (a bit shorter) */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  max-height: 220px;
+  overflow-y: auto;
+  transition: max-height 0.35s ease;
+}
+
+/* EXPAND when a live speaking bubble is present */
+.chat-window:has(.chat-bubble.tutor.live) {
+  max-height: 360px;
+}
+
+/* light pastel chat background like screenshot */
+.speaker-root.dark .chat-window {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.speaker-root.light .chat-window {
+  background: rgba(240, 249, 255, 0.95);
+  border: 1px solid rgba(191, 219, 254, 0.9);
+}
+
+/* base bubble */
+.chat-bubble {
+  margin-bottom: 0;
+  padding: 0.55rem 0.85rem;
+  border-radius: 0.9rem;
+  font-size: 0.9rem;
+}
+
+/* tutor messages – boxed like venous */
+.chat-bubble.tutor {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 1rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* bubble colours per theme */
+.speaker-root.dark .chat-bubble.tutor {
+  color: #e5e7eb;
+}
+
+.speaker-root.light .chat-bubble.tutor {
+  background: rgba(224, 242, 254, 0.85);
+  color: #0f172a;
+  border-color: rgba(148, 163, 184, 0.25);
+}
+
+/* live speaking bubble – dotted outline */
+.chat-bubble.tutor.live {
+  border-style: dashed;
+  border-color: rgba(148, 163, 184, 0.7);
+}
+
+/* system bubble at end */
+.chat-bubble.system {
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.speaker-root.dark .chat-bubble.system {
+  background: #047857;
+  color: #e5e7eb;
+}
+
+.speaker-root.light .chat-bubble.system {
+  background: #bbf7d0;
+  color: #065f46;
+}
+
+.chat-name {
+  font-size: 0.78rem;
+  opacity: 0.8;
+  margin-bottom: 0.15rem;
+}
+
+.chat-text {
+  font-size: 0.9rem;
+}
+
+/* ====================================
+   DIAGRAM CARD (RIGHT SIDE)
+   ==================================== */
+
+.diagram-card {
+  width: 100%;
+  height: 100%;
+  border-radius: 1.25rem;
+  padding: 0.9rem 1.1rem;
+  box-sizing: border-box;
+}
+
+/* dark navy card on both themes (like screenshot) */
+.diagram-card {
+  background: #020617;
+  color: #e5e7eb;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+}
+
+.diagram-title {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* segment rows inside diagram */
+
+.segment-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.3rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.segment-line {
+  width: 14px;
+  height: 2px;
+  border-radius: 999px;
+  background: #1e293b;
+}
+
+.segment-label {
+  font-size: 0.86rem;
+  color: #94a3b8;
+}
+
+/* highlighted active segment */
+.segment-row.active {
+  transform: translateX(2px);
+  background: rgba(59, 130, 246, 0.22);
+}
+
+.segment-row.active .segment-line {
+  background: #38bdf8;
+}
+
+.segment-row.active .segment-label {
+  color: #e5e7eb;
+}
+
+/* ====================================
+   CIRCULATION TABS (Arterial / Venous)
+   ==================================== */
+
+.circulation-root {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1rem 2rem;
+}
+
+.circulation-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.circulation-header p {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.circulation-tabs {
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.tab-button {
+  border-radius: 999px;
+  border: 1px solid #38bdf8;
+  background: transparent;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  color: #e5e7eb;
+}
+
+.app-root.light .tab-button {
+  color: #0f172a;
+}
+
+.tab-button.active {
+  background: #38bdf8;
+  color: #0f172a;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+.tab-button:hover {
+  background: rgba(56, 189, 248, 0.12);
+}
